@@ -19,7 +19,7 @@ Follow these steps to clone the repository and get the application running on yo
 2.  **Clone the Repository:**
     Open your terminal or command prompt and run the following command, replacing `<YourGitHubUsername>` and `<YourRepositoryName>` with the actual values:
     ```bash
-    git clone https://github.com/VinitHudiya19/CEP_OMS.git
+    git clone 
     ```
     Then, navigate into the newly cloned directory:
     ```bash
