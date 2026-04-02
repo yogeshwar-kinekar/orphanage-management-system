@@ -1,0 +1,17 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      {% set alert_class = 'bg-blue-100 border-blue-500 text-blue-700' %} <!-- default: info -->
+      {% if category == 'danger' %}
+        {% set alert_class = 'bg-red-100 border-red-500 text-red-700' %}
+      {% elif category == 'success' %}
+        {% set alert_class = 'bg-green-100 border-green-500 text-green-700' %}
+      {% elif category == 'warning' %}
+        {% set alert_class = 'bg-yellow-100 border-yellow-500 text-yellow-700' %}
+      {% endif %}
+      <div class="border-l-4 p-4 mb-4 {{ alert_class }}" role="alert">
+        <p>{{ message }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}

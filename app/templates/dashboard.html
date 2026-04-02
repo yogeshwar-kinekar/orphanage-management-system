@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# 1. Dashboard Title #}
+<div class="flex items-center mb-6">
+    {# Heroicon: home #}
+    <svg class="h-6 w-6 mr-2 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+    <h1 class="text-2xl font-semibold text-gray-800">Dashboard Overview</h1>
+</div>
+
+{# 2. Stats Grid - Updated Design #}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+    {# Stat Card: Total Orphans #}
+    <div class="bg-white rounded-lg shadow p-5 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500 rounded-t-lg"></div> {# Top Border #}
+        <div class="flex justify-between items-start mt-1"> {# items-start to align icon top #}
+            <div class="space-y-1">
+                <p class="text-sm font-medium text-gray-500">Total Orphans</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.total_orphans }}</p>
+                {# Placeholder Trend Line #}
+                <p class="flex items-center text-xs text-green-600">
+                    <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg>
+                    Increased by 10% this month {# Replace with dynamic data if available #}
+                </p>
+            </div>
+            <div class="bg-blue-100 rounded-full p-2">
+                {# Heroicon: users #}
+                <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
+            </div>
+        </div>
+    </div>
+
+    {# Stat Card: Total Donations #}
+    <div class="bg-white rounded-lg shadow p-5 relative overflow-hidden">
+         <div class="absolute top-0 left-0 right-0 h-1 bg-purple-500 rounded-t-lg"></div> {# Top Border #}
+         <div class="flex justify-between items-start mt-1">
+            <div class="space-y-1">
+                <p class="text-sm font-medium text-gray-500">Total Donations</p>
+                <p class="text-3xl font-bold text-gray-900">{{ format_currency(stats.total_donations) }}</p>
+                {# Placeholder Trend Line #}
+                <p class="flex items-center text-xs text-green-600">
+                    <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg>
+                    Increased by 15% this month {# Replace with dynamic data if available #}
+                </p>
+            </div>
+            <div class="bg-purple-100 rounded-full p-2">
+                 {# Heroicon: gift #}
+                 <svg class="h-6 w-6 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A3.375 3.375 0 0 1 15.375 8.25h-6.75A3.375 3.375 0 0 1 12 4.875Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.875c-1.875 0-3.375 1.5-3.375 3.375h6.75c0-1.875-1.5-3.375-3.375-3.375Z" /></svg>
+             </div>
+         </div>
+     </div>
+
+    {# Stat Card: Monthly Expenses #}
+    <div class="bg-white rounded-lg shadow p-5 relative overflow-hidden">
+         <div class="absolute top-0 left-0 right-0 h-1 bg-yellow-400 rounded-t-lg"></div> {# Top Border #}
+         <div class="flex justify-between items-start mt-1">
+             <div class="space-y-1">
+                <p class="text-sm font-medium text-gray-500">Monthly Expenses</p> {# Title matches image #}
+                {# NOTE: stats.total_expenses might need to be filtered by month in routes.py #}
+                <p class="text-3xl font-bold text-gray-900">{{ format_currency(stats.total_expenses) }}</p>
+                {# Placeholder Trend Line - Red for increase #}
+                <p class="flex items-center text-xs text-red-600">
+                    <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6 9 12.75l4.286-4.286a11.948 11.948 0 0 1 4.306 6.43l.776 2.898m0 0 3.182-5.511m-3.182 5.51-5.511-3.181" /></svg> {# Trend up icon #}
+                    Increased by 5% this month {# Replace with dynamic data if available #}
+                </p>
+            </div>
+             <div class="bg-yellow-100 rounded-full p-2">
+                 {# Heroicon: currency-dollar #}
+                 <svg class="h-6 w-6 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+             </div>
+         </div>
+     </div>
+
+    {# Stat Card: NGO Members #}
+    <div class="bg-white rounded-lg shadow p-5 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-green-500 rounded-t-lg"></div> {# Top Border #}
+        <div class="flex justify-between items-start mt-1">
+            <div class="space-y-1">
+                <p class="text-sm font-medium text-gray-500">NGO Members</p>
+                <p class="text-3xl font-bold text-gray-900">{{ stats.active_members }}</p>
+                 {# Placeholder Trend Line #}
+                <p class="flex items-center text-xs text-green-600">
+                    <svg class="h-3 w-3 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" /></svg>
+                    2 new members this month {# Replace with dynamic data if available #}
+                </p>
+            </div>
+            <div class="bg-green-100 rounded-full p-2">
+                {# Heroicon: user-group #}
+                <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 1 1 0 0 0 .894-.99c-.105-1.024-.43-2.44-.98-3.686a1 1 0 0 0-1.636-.546l-.621.494m-4.715 3.512A7.5 7.5 0 0 1 8.25 15a7.5 7.5 0 0 1 7.5-7.5 7.5 7.5 0 0 1 7.5 7.5c0 1.467-.412 2.834-1.125 4.013m-11.25 0c-1.688-.988-2.875-2.657-3.375-4.505m11.25 0c-.5 1.848-1.688 3.517-3.375 4.505" /></svg>
+            </div>
+        </div>
+    </div>
+
+</div> {# End Stats Grid #}
+
+
+{# --- Keep Existing Sections Below (Optional) --- #}
+
+{# Example: Expenses Breakdown (You can keep or remove this) #}
+<div class="bg-white p-6 rounded-lg shadow mb-8">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Expenses Overview</h2>
+    {# ... rest of expenses breakdown ... #}
+     <div class="flex flex-col md:flex-row justify-between items-baseline mb-4">
+        <p class="text-lg font-medium text-gray-700">Total Expenses:</p>
+        <p class="text-2xl font-bold text-red-600">{{ format_currency(stats.total_expenses) }}</p>
+    </div>
+    {% if stats.expenses_breakdown %}
+    <h3 class="text-md font-semibold text-gray-700 mb-2">Top Expense Categories:</h3>
+    <ul class="space-y-1">
+        {% for category, total in stats.expenses_breakdown %}
+        <li class="flex justify-between text-sm text-gray-600">
+            <span>{{ category }}</span>
+            <span class="font-medium">{{ format_currency(total) }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="text-gray-500 italic">No expense data available.</p>
+    {% endif %}
+    <div class="mt-4 text-right">
+         <a href="{{ url_for('main.list_expenses') }}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">View All Expenses →</a>
+    </div>
+</div>
+
+{# Quick Links/Actions (You can keep or remove this) #}
+<div class="bg-white p-6 rounded-lg shadow">
+     <h2 class="text-xl font-semibold text-gray-800 mb-4">Quick Actions</h2>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a href="{{ url_for('main.add_orphan') }}" class="text-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Add Orphan</a>
+          <a href="{{ url_for('main.add_donation') }}" class="text-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">Add Donation</a>
+          <a href="{{ url_for('main.add_expense') }}" class="text-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Add Expense</a>
+          <a href="{{ url_for('main.add_member') }}" class="text-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">Add Member</a>
+     </div>
+</div>
+
+{% endblock %}

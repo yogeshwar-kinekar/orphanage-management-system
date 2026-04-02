@@ -1,0 +1,55 @@
+{# templates/_form_helpers.html - Version WITHOUT using {% do %} #}
+{% macro render_field(field, type='text', rows=None, step=None, prefix=None, **kwargs) %}
+  {# **kwargs captures any other HTML attributes passed to the macro call #}
+  <div class="mb-4">
+    {# Render label unless it's a checkbox where we render it next to the box #}
+    {% if type != 'checkbox' %}
+      {{ field.label(class="block text-sm font-medium text-gray-700 mb-1") }}
+    {% endif %}
+
+    {# Base CSS class for most inputs #}
+    {% set base_class = "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" %}
+
+    {# Build the final attributes dictionary #}
+    {% set final_attrs = kwargs|dict %} {# Convert kwargs from macro call into a mutable dict #}
+
+    {% if type == 'textarea' %}
+      {% set _ = final_attrs.update({'rows': rows if rows else 3, 'class': base_class }) %}
+      {{ field(**final_attrs) }}
+    {% elif type == 'checkbox' %}
+       <div class="flex items-center">
+         {% set _ = final_attrs.update({'class': "h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"}) %}
+         {{ field(**final_attrs) }}
+         {# Render label text next to the checkbox using the field's actual label #}
+         <label for="{{ field.id }}" class="ml-2 block text-sm text-gray-900">{{ field.label.text }}</label>
+       </div>
+    {% elif type == 'number' %}
+       <div class="mt-1 relative rounded-md shadow-sm">
+          {% if prefix == '$' %}
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="text-gray-500 sm:text-sm">$</span>
+            </div>
+            {% set _ = final_attrs.update({'class': base_class + ' pl-7 pr-12', 'type': type, 'step': step if step else 'any'}) %}
+            {{ field(**final_attrs) }}
+          {% else %}
+             {% set _ = final_attrs.update({'class': base_class, 'type': type, 'step': step if step else 'any'}) %}
+             {{ field(**final_attrs) }}
+          {% endif %}
+       </div>
+    {% elif type == 'date' %}
+        {% set _ = final_attrs.update({'class': base_class, 'type': 'date'}) %}
+         {{ field(**final_attrs) }}
+    {% else %} {# Default text input #}
+       {% set _ = final_attrs.update({'class': base_class, 'type': type}) %}
+       {{ field(**final_attrs) }}
+    {% endif %}
+
+    {% if field.errors %}
+      <ul class="text-red-500 text-xs italic mt-1">
+      {% for error in field.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endmacro %}
