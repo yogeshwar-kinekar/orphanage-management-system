@@ -1,0 +1,24 @@
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=mysql+mysqlconnector://root:password@db:3306/orphanage_db
+      - FLASK_ENV=development
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_DATABASE=orphanage_db
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
